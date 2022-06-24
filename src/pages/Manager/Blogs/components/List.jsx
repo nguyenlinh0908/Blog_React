@@ -3,6 +3,7 @@ import axios from "axios";
 import $ from "jquery";
 import Modal from "bootstrap/js/src/modal";
 import Cookies from "universal-cookie";
+import Toast from "bootstrap/js/src/toast";
 // components
 import MModal from "./Modal";
 import blogsList from "./BlogsList";
@@ -47,6 +48,11 @@ function List() {
         })
         .then(async () => {
           let blogs = await blogsList();
+          let toastElList = [].slice.call(document.querySelectorAll(".toast"));
+          let toastList = toastElList.map(function (toastEl) {
+            return new Toast(toastEl, {});
+          });
+          toastList[0].show();
           setBlogs(blogs);
         })
         .then((err) => {

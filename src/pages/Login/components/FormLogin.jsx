@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ function FormLogin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let navigate = useNavigate();
+  const cookies = new Cookies();
   const handleChange = (event) => {
     let target = event.target;
     switch (target.name) {
@@ -25,7 +26,6 @@ function FormLogin() {
         password: password,
       })
       .then((data) => {
-        const cookies = new Cookies();
         cookies.set("token", data, { path: "/" });
         navigate("/admin/blogs");
       })
@@ -33,6 +33,12 @@ function FormLogin() {
         console.log(err);
       });
   };
+  useEffect(() => {
+    let isToken = cookies.get("token");
+    if (isToken) {
+      navigate("/admin/blogs");
+    }
+  }, []);
   return (
     <>
       <form onSubmit={handleSubmit}>

@@ -1,13 +1,13 @@
-import News from "./components/News";
+import Content from "./components/Content";
 import RelatedNews from "../components/RelatedNews";
 function Index() {
   return (
     <>
       <div className="row">
-        <div className="col-md-8">
-          <News />
+        <div className="col-9">
+          <Content />
         </div>
-        <div className="col-md-4">
+        <div className="col-3">
           <RelatedNews />
         </div>
       </div>

@@ -116,7 +116,7 @@ function FormNewPost() {
                 <option selected>Open this select category</option>
                 {categories.map((category, index) => {
                   return (
-                    <option value={category["_id"]}>{category["name"]}</option>
+                    <option value={category["name"]}>{category["name"]}</option>
                   );
                 })}
               </select>
