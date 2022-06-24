@@ -6,10 +6,12 @@ import Cookies from "universal-cookie";
 import Toast from "bootstrap/js/src/toast";
 // components
 import MModal from "./Modal";
+import ManagerToast from "../../components/ManagerToast";
 import blogsList from "./BlogsList";
 function List() {
   let [blogs, setBlogs] = useState([]);
   let [action, setAction] = useState();
+  let [notification, setNotification] = useState({});
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/blogs/posts")
@@ -30,7 +32,6 @@ function List() {
   const handleDelete = (e) => {
     e.preventDefault();
     let isConfirm = window.confirm("You want to delete it !");
-
     let target = e.target;
     if (isConfirm) {
       let cookies = new Cookies();
@@ -44,15 +45,25 @@ function List() {
           },
         })
         .then((res) => {
-          console.log(res["data"]);
+          setNotification({
+            status: "danger",
+            message: "notification success",
+          });
         })
         .then(async () => {
+          // notification
+          let toastEl = $("#liveToast");
+          let myToast = Toast.getInstance(toastEl);
+          myToast = new Toast(toastEl, { autohide: true });
+          myToast.show();
+          // update list
           let blogs = await blogsList();
           let toastElList = [].slice.call(document.querySelectorAll(".toast"));
           let toastList = toastElList.map(function (toastEl) {
             return new Toast(toastEl, {});
           });
           toastList[0].show();
+          myToast.show();
           setBlogs(blogs);
         })
         .then((err) => {
@@ -121,6 +132,14 @@ function List() {
         </tbody>
         <tfoot></tfoot>
       </table>
+      {notification["status"] ? (
+        <ManagerToast
+          status={notification["status"]}
+          message={notification["message"]}
+        />
+      ) : (
+        <></>
+      )}
       <MModal action={action} />
     </>
   );

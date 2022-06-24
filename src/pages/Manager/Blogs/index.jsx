@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import FormNewPost from "./components/FormNewPost";
 import List from "./components/List";
 function Index() {
