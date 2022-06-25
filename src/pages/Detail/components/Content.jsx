@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ReactHtmlParser from "react-html-parser";
+
+import parse from "html-react-parser";
 // components
 import StandardizedRouter from "../../components/StandardizedRouter";
 
@@ -34,7 +35,7 @@ function Content() {
           <h1 className="card-title">{post["title"]}</h1>
           <p className="card-text">{post["description"]}</p>
           <article className="fck_detail ">
-            {ReactHtmlParser(post["content"])}
+            {post["content"] ? parse(post["content"]) : ""}
           </article>
         </div>
       </div>

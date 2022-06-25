@@ -1,3 +1,3 @@
-# About Blogs Pokemon
+# About Blogs React
 
-Blog have information about pokemon
+Blogs Page front-end built with reactjs
