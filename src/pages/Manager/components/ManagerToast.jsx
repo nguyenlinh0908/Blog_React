@@ -9,11 +9,14 @@ function ManagerToast(props) {
       mess: message ? message : "notification",
     };
     setNotification(data);
-  },[]);
+  }, []);
 
   return (
     <>
-      <div class="position-fixed top-0 end-0 p-3" style={{ zIndex: "9999" }}>
+      <div
+        className="position-fixed top-0 end-0 p-3"
+        style={{ zIndex: "9999" }}
+      >
         <div
           id="liveToast"
           class={`toast hide bg-${notification["bg"]}`}
@@ -21,23 +24,23 @@ function ManagerToast(props) {
           aria-live="assertive"
           aria-atomic="true"
         >
-          <div class="toast-header ">
+          <div className="toast-header ">
             <img
               src="/icon.png"
-              class="rounded me-2"
+              className="rounded me-2"
               style={{ maxWidth: "25px" }}
               alt="logo"
             />
-            <strong class="me-auto">Blogs</strong>
+            <strong className="me-auto">Blogs</strong>
             {/* <small>11 mins ago</small> */}
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="toast"
               aria-label="Close"
             ></button>
           </div>
-          <div class="toast-body">{notification["mess"]}</div>
+          <div className="toast-body">{notification["mess"]}</div>
         </div>
       </div>
     </>

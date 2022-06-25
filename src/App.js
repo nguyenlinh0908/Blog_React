@@ -7,6 +7,7 @@ import NavBar from "./pages/components/NavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Detail from "./pages/Detail";
+import Category from "./pages/Category";
 // admin
 import Manager from "./pages/Manager";
 function App() {
@@ -18,7 +19,11 @@ function App() {
           <Route
             path="/post/:id"
             element={<WarpPages page={<Detail />} type={0} />}
-          />        
+          />
+          <Route
+            path="/category/:category"
+            element={<WarpPages page={<Category />} type={0} />}
+          />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/blogs" element={<Manager />} />
         </Routes>

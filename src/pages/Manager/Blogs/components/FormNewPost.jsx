@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+import { Editor } from "@tinymce/tinymce-react";
 function FormNewPost() {
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
@@ -22,6 +23,9 @@ function FormNewPost() {
     let target = e.target;
     e.preventDefault();
     let name = target.name;
+    if (!name) { // su dung Tinymce nen phai lay value theo cach khac
+      name = target.targetElm.name;
+    }
     switch (name) {
       case "title": {
         setTitle(target.value);
@@ -41,7 +45,7 @@ function FormNewPost() {
         break;
       }
       case "content": {
-        setContent(target.value);
+        setContent(target.getContent());
         break;
       }
     }
@@ -77,38 +81,38 @@ function FormNewPost() {
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-7">
-            <div class="form-outline mb-4">
-              <label class="form-label" for="formTitle">
+            <div className="form-outline mb-4">
+              <label className="form-label" for="formTitle">
                 Title
               </label>
               <input
                 name="title"
                 type="text"
                 id="formTitle"
-                class="form-control"
+                className="form-control"
                 onChange={handleChange}
               />
             </div>
 
-            <div class="form-outline mb-4">
-              <label class="form-label" for="formDescription">
+            <div className="form-outline mb-4">
+              <label className="form-label" for="formDescription">
                 Description
               </label>
               <input
                 name="description"
                 type="text"
                 id="formDescription"
-                class="form-control"
+                className="form-control"
                 onChange={handleChange}
               />
             </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="formCategories">
+            <div className="form-outline mb-4">
+              <label className="form-label" for="formCategories">
                 Category
               </label>
               <select
                 name="category"
-                class="form-select"
+                className="form-select"
                 id="formCategories"
                 aria-label="Default select category"
                 onChange={handleChange}
@@ -116,14 +120,16 @@ function FormNewPost() {
                 <option selected>Open this select category</option>
                 {categories.map((category, index) => {
                   return (
-                    <option value={category["name"]}>{category["name"]}</option>
+                    <option key={index} value={category["name"]}>
+                      {category["name"]}
+                    </option>
                   );
                 })}
               </select>
             </div>
           </div>
           <div className="col-5">
-            <label class="form-label" for="avatar">
+            <label className="form-label" for="avatar">
               Avatar
             </label>
             <img
@@ -135,8 +141,8 @@ function FormNewPost() {
             />
           </div>
         </div>
-        <div class="form-outline mb-4">
-          <label class="form-label" for="urlAvatar">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="urlAvatar">
             Url
           </label>
           <input
@@ -144,22 +150,32 @@ function FormNewPost() {
             type="text"
             onChange={handleChange}
             id="urlAvatar"
-            class="form-control"
+            className="form-control"
           />
         </div>
-        <div class="form-outline mb-4">
-          <label class="form-label" for="formContent">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="formContent">
             Content
           </label>
-          <textarea
+          <Editor
+            textareaName="content"
+            apiKey="xvs8ssmdkfbb705c4n7th22yrjqdr9susj9fq0i9d30872fv"
             onChange={handleChange}
-            name="content"
-            class="form-control"
-            id="formContent"
-            rows="4"
-          ></textarea>
+            init={{
+              selector: "textarea.content'",
+              height: 500,
+              plugins: "image",
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | image |help",
+              a11y_advanced_options: true,
+            }}
+          />
         </div>
-        <button type="submit" class="btn btn-primary btn-block mb-4">
+
+        <button type="submit" className="btn btn-primary btn-block mb-4">
           Send
         </button>
       </form>

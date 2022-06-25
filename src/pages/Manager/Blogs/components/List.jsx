@@ -73,8 +73,8 @@ function List() {
   };
   return (
     <>
-      <table class="table">
-        <thead class="table-dark">
+      <table className="table">
+        <thead className="table-dark">
           <tr>
             <th scope="col" className="col-1">
               #
@@ -96,7 +96,7 @@ function List() {
         <tbody>
           {blogs.map((blog, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <th scope="row">{++index}</th>
                 <td>{blog["title"]}</td>
                 <td>Pokemon</td>
@@ -108,14 +108,14 @@ function List() {
                     className="btn btn-info"
                     onClick={handleViewBlog}
                   >
-                    <i class="fa-solid fa-eye"></i>
+                    <i className="fa-solid fa-eye"></i>
                   </a>
                   <a
                     href="#"
                     data-id={blog["_id"]}
                     className="btn btn-warning mx-3"
                   >
-                    <i class="fa-solid fa-wrench"></i>
+                    <i className="fa-solid fa-wrench"></i>
                   </a>
                   <a
                     href="#"
@@ -123,7 +123,7 @@ function List() {
                     data-id={blog["_id"]}
                     className="btn btn-danger"
                   >
-                    <i class="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-trash"></i>
                   </a>
                 </td>
               </tr>

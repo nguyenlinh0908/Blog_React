@@ -16,6 +16,8 @@ function FormLogin() {
       case "password":
         setPassword(target.value);
         break;
+      default:
+        break;
     }
   };
   const handleSubmit = (event) => {
@@ -42,53 +44,53 @@ function FormLogin() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div class="form-outline mb-4">
+        <div className="form-outline mb-4">
           <input
             name="email"
             type="email"
             id="formEmail"
-            class="form-control"
+            className="form-control"
             onChange={handleChange}
           />
-          <label class="form-label" for="formEmail">
+          <label className="form-label" for="formEmail">
             Email address
           </label>
         </div>
 
-        <div class="form-outline mb-4">
+        <div className="form-outline mb-4">
           <input
             name="password"
             type="password"
             id="formPassword"
-            class="form-control"
+            className="form-control"
             onChange={handleChange}
           />
-          <label class="form-label" for="formPassword">
+          <label className="form-label" for="formPassword">
             Password
           </label>
         </div>
 
-        <div class="row mb-4">
-          <div class="col d-flex justify-content-center">
-            <div class="form-check">
+        <div className="row mb-4">
+          <div className="col d-flex justify-content-center">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="form2Example31"
                 checked
               />
-              <label class="form-check-label" for="form2Example31">
+              <label className="form-check-label" for="form2Example31">
                 Remember me
               </label>
             </div>
           </div>
 
-          <div class="col">
+          <div className="col">
             <a href="#!">Forgot password?</a>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block mb-4 w-100">
+        <button type="submit" className="btn btn-primary btn-block mb-4 w-100">
           Sign in
         </button>
       </form>

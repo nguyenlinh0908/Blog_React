@@ -5,21 +5,21 @@ function Index() {
     <>
       <div className="row">
         <div className="col">
-          <div class="card">
-            <div class="card-header">
+          <div className="card">
+            <div className="card-header">
               <strong>BLOG</strong>
             </div>
-            <div class="card-body">
+            <div className="card-body">
               <FormNewPost />
             </div>
           </div>
         </div>
         <div className="col">
-          <div class="card">
-            <div class="card-header">
+          <div className="card">
+            <div className="card-header">
               <strong>List</strong>
             </div>
-            <div class="card-body">
+            <div className="card-body">
               <List />
             </div>
           </div>
