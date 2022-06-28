@@ -9,7 +9,6 @@ function NavBar() {
       .get("http://localhost:8000/api/v1/blogs/categories")
       .then((res) => {
         let data = res["data"];
-        console.log(data);
         setCategories(data);
       })
       .catch((err) => {

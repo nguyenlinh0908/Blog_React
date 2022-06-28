@@ -8,7 +8,7 @@ function Index() {
           <Content />
         </div>
         <div className="col-3">
-          <RelatedNews />
+          <RelatedNews type="detail" />
         </div>
       </div>
     </>
