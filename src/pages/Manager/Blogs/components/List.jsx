@@ -3,15 +3,13 @@ import axios from "axios";
 import $ from "jquery";
 import Modal from "bootstrap/js/src/modal";
 import Cookies from "universal-cookie";
-import Toast from "bootstrap/js/src/toast";
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 // components
-import MModal from "./Modal";
-import ManagerToast from "../../components/ManagerToast";
 import blogsList from "./BlogsList";
+import notification from "../../components/Notification";
 function List() {
   let [blogs, setBlogs] = useState([]);
-  let [action, setAction] = useState();
-  let [notification, setNotification] = useState({});
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/blogs/posts")
@@ -25,9 +23,6 @@ function List() {
   }, []);
   const handleViewBlog = (e) => {
     e.preventDefault();
-    setAction("view");
-    let myModal = new Modal($("#myModal"));
-    myModal.toggle();
   };
   const handleDelete = (e) => {
     e.preventDefault();
@@ -45,28 +40,13 @@ function List() {
           },
         })
         .then((res) => {
-          setNotification({
-            status: "danger",
-            message: "notification success",
-          });
+          notification("Delete", "this posts success", "success");
         })
         .then(async () => {
-          // notification
-          let toastEl = $("#liveToast");
-          let myToast = Toast.getInstance(toastEl);
-          myToast = new Toast(toastEl, { autohide: true });
-          myToast.show();
-          // update list
           let blogs = await blogsList();
-          let toastElList = [].slice.call(document.querySelectorAll(".toast"));
-          let toastList = toastElList.map(function (toastEl) {
-            return new Toast(toastEl, {});
-          });
-          toastList[0].show();
-          myToast.show();
           setBlogs(blogs);
         })
-        .then((err) => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -132,15 +112,6 @@ function List() {
         </tbody>
         <tfoot></tfoot>
       </table>
-      {notification["status"] ? (
-        <ManagerToast
-          status={notification["status"]}
-          message={notification["message"]}
-        />
-      ) : (
-        <></>
-      )}
-      <MModal action={action} />
     </>
   );
 }

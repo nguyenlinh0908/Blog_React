@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import { Editor } from "@tinymce/tinymce-react";
+import { Store } from "react-notifications-component";
+import notification from "../../components/Notification";
 function FormNewPost() {
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
@@ -23,7 +25,8 @@ function FormNewPost() {
     let target = e.target;
     e.preventDefault();
     let name = target.name;
-    if (!name) { // su dung Tinymce nen phai lay value theo cach khac
+    if (!name) {
+      // su dung Tinymce nen phai lay value theo cach khac
       name = target.targetElm.name;
     }
     switch (name) {
@@ -69,16 +72,19 @@ function FormNewPost() {
         },
       })
       .then((res) => {
-        console.log(res);
+        setUrlAvatar("/logo512.png");
+        document.getElementById("form-add-post").reset();
+        notification("Add", "Add new post success", "success");
       })
       .catch((err) => {
+        notification("Add", "Add new post fail", "danger");
         console.log(err);
       });
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="form-add-post">
         <div className="row">
           <div className="col-7">
             <div className="form-outline mb-4">
