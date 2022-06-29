@@ -4,6 +4,8 @@ import StandardizedRouter from "./StandardizedRouter";
 function NavBar() {
   let [categories, setCategories] = useState([]);
   let [categoryStatus, setCategoryStatus] = useState("none");
+  let [searchKey, setSearchKey] = useState("");
+  let [postsSearch, setPostsSearch] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/blogs/categories")
@@ -15,6 +17,33 @@ function NavBar() {
         console.log(err);
       });
   }, []);
+  const handleSearchKey = (e) => {
+    e.preventDefault();
+    let target = e.target;
+    let contentSearch = target.value;
+    if (contentSearch == "") {
+      let resultSearchBox = document.getElementById("result-searchbox");
+      resultSearchBox.style.display = "none";
+    }
+    setSearchKey(contentSearch);
+  };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/api/v1/blogs/search", { key: searchKey })
+      .then((res) => {
+        let resultSearch = res["data"];
+        console.log(resultSearch);
+        let resultSearchBox = document.getElementById("result-searchbox");
+        if (resultSearch.length == 0) {
+          resultSearchBox.style.display = "none";
+        } else {
+          resultSearchBox.style.display = "block";
+          setPostsSearch(resultSearch);
+        }
+      })
+      .catch((err) => {});
+  };
   const handleShowCategories = (e) => {
     e.preventDefault();
     if (categoryStatus === "none") {
@@ -91,19 +120,59 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <form class="d-flex">
+          <form class="d-flex" onSubmit={handleSearch}>
             <input
-              class="form-control me-2"
+              onChange={handleSearchKey}
+              class="form-control me-2 dropdown-toggle"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              data-bs-toggle="dropdown"
             />
+
             <button class="btn btn-outline-success" type="submit">
               Search
             </button>
           </form>
         </div>
       </nav>
+      <div
+        id="result-searchbox"
+        style={{
+          position: "absolute",
+          right: "6.2rem",
+          top: "4.5rem",
+          zIndex: 100,
+          display: "none",
+          transition: "all 0.3s ease-out",
+        }}
+      >
+        <ul class="list-group" style={{ width: "17rem" }}>
+          {postsSearch ? (
+            postsSearch.map((post) => {
+              return (
+                <li class="list-group-item">
+                  <a className="text-dark"
+                    style={{ textDecoration: "none"}}
+                    href={`/post/${post["_id"]}`}
+                  >
+                    {post["title"]}
+                  </a>
+                </li>
+              );
+            })
+          ) : (
+            <></>
+          )}
+          {/* <li class="list-group-item active" aria-current="true">
+            An active item
+          </li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+          <li class="list-group-item">And a fifth one</li> */}
+        </ul>
+      </div>
     </>
   );
 }
