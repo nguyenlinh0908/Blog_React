@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import Cookies from "universal-cookie";
 import { Editor } from "@tinymce/tinymce-react";
-import { Store } from "react-notifications-component";
 import notification from "../../components/Notification";
+// components
+import { Context } from "../../../components/Context";
 function FormNewPost() {
+  let counter = 0;
+  let [status, setStatus] = useContext(Context);
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [category, setCategory] = useState("");
@@ -21,6 +24,33 @@ function FormNewPost() {
       })
       .catch((err) => {});
   }, []);
+  useMemo(() => {
+    if (status != "normal") {
+      let id = status;
+      axios
+        .get(`http://localhost:8000/api/v1/blogs/post/${id}`)
+        .then((res) => {
+          let post = res["data"];
+          setTitle(post["title"]);
+          setDescription(post["description"]);
+          setCategory(post["category"]);
+          setUrl(post["url"]);
+          setUrlAvatar(post["url"]);
+          setContent(post["content"]);
+        })
+        .catch((err) => {});
+    }
+  }, [status]);
+  const handleClear = (e) => {
+    e.preventDefault();
+    setStatus("normal");
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setUrl("");
+    setUrlAvatar("");
+    setContent("");
+  };
   const handleChange = (e) => {
     let target = e.target;
     e.preventDefault();
@@ -55,6 +85,9 @@ function FormNewPost() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    let isMethod = "POST";
+    let isUrl = "http://localhost:8000/api/v1/blogs/post";
+    let process = status;
     const cookies = new Cookies();
     let token = cookies.get("token");
     token = token["data"];
@@ -65,19 +98,34 @@ function FormNewPost() {
       content: content,
       category: category,
     };
-    axios
-      .post("http://localhost:8000/api/v1/blogs/post", data, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+    if (process != "normal") {
+      let ID = status;
+      isMethod = "PATCH";
+      isUrl = `http://localhost:8000/api/v1/blogs/post/${ID}`;
+    }
+    axios({
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      method: isMethod,
+      url: isUrl,
+      data: data,
+    })
       .then((res) => {
         setUrlAvatar("/logo512.png");
         document.getElementById("form-add-post").reset();
-        notification("Add", "Add new post success", "success");
+        setStatus("normal");
+        setStatus("normal");
+        setTitle("");
+        setDescription("");
+        setCategory("");
+        setUrl("");
+        setUrlAvatar("/logo512.png");
+        setContent("");
+        notification("Add", "Process success", "success");
       })
       .catch((err) => {
-        notification("Add", "Add new post fail", "danger");
+        notification("Add", "Process fail", "danger");
         console.log(err);
       });
   };
@@ -92,6 +140,7 @@ function FormNewPost() {
                 Title
               </label>
               <input
+                value={title}
                 name="title"
                 type="text"
                 id="formTitle"
@@ -105,6 +154,7 @@ function FormNewPost() {
                 Description
               </label>
               <input
+                value={description}
                 name="description"
                 type="text"
                 id="formDescription"
@@ -117,6 +167,7 @@ function FormNewPost() {
                 Category
               </label>
               <select
+                value={category}
                 name="category"
                 className="form-select"
                 id="formCategories"
@@ -152,6 +203,7 @@ function FormNewPost() {
             Url
           </label>
           <input
+            value={url}
             name="url"
             type="text"
             onChange={handleChange}
@@ -164,6 +216,7 @@ function FormNewPost() {
             Content
           </label>
           <Editor
+            value={content}
             textareaName="content"
             apiKey="xvs8ssmdkfbb705c4n7th22yrjqdr9susj9fq0i9d30872fv"
             onChange={handleChange}
@@ -181,9 +234,17 @@ function FormNewPost() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block mb-4">
-          Send
-        </button>
+        <div className="d-flex justify-content-between">
+          <button
+            type="submit"
+            className={`btn btn-${
+              status === "normal" ? "primary" : "warning"
+            } btn-block mb-4`}
+          >
+            {status === "normal" ? "Send" : "Edit"}
+          </button>
+          <p onClick={handleClear}>Clear</p>
+        </div>
       </form>
     </>
   );

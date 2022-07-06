@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import $ from "jquery";
-import Modal from "bootstrap/js/src/modal";
 import Cookies from "universal-cookie";
-import { Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 // components
+import { Context } from "../../../components/Context";
 import blogsList from "./BlogsList";
 import notification from "../../components/Notification";
 function List() {
   let [blogs, setBlogs] = useState([]);
+  let [status, setStatus] = useContext(Context);
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/blogs/posts")
@@ -24,6 +24,12 @@ function List() {
   const handleViewBlog = (e) => {
     e.preventDefault();
   };
+  const handleEdit = (e) => {
+    e.preventDefault();
+    let target = e.target;
+    let postID = target.dataset.id;
+    setStatus(postID);
+  };
   const handleDelete = (e) => {
     e.preventDefault();
     let isConfirm = window.confirm("You want to delete it !");
@@ -34,7 +40,7 @@ function List() {
       token = token["data"];
       let IDPost = target.dataset.id;
       axios
-        .delete(`http://localhost:8000/api/v1/blogs/post/delete/${IDPost}`, {
+        .delete(`http://localhost:8000/api/v1/blogs/post/${IDPost}`, {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -94,6 +100,7 @@ function List() {
                     href="#"
                     data-id={blog["_id"]}
                     className="btn btn-warning mx-3"
+                    onClick={handleEdit}
                   >
                     <i className="fa-solid fa-wrench"></i>
                   </a>
