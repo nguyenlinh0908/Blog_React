@@ -26,7 +26,7 @@ function SideBar() {
                 <i className="fas fa-tachometer-alt fa-fw me-3"></i>
                 <span>Main dashboard</span>
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="list-group-item list-group-item-action py-2 ripple"
               >
@@ -53,7 +53,7 @@ function SideBar() {
               >
                 <i className="fas fa-chart-pie fa-fw me-3"></i>
                 <span>SEO</span>
-              </a>
+              </a> */}
               <a
                 href="#"
                 className="list-group-item list-group-item-action py-2 ripple active"
@@ -61,7 +61,7 @@ function SideBar() {
                 <i className="fas fa-chart-bar fa-fw me-3"></i>
                 <span>Blogs</span>
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="list-group-item list-group-item-action py-2 ripple"
               >
@@ -95,7 +95,7 @@ function SideBar() {
               >
                 <i className="fas fa-money-bill fa-fw me-3"></i>
                 <span>Sales</span>
-              </a>
+              </a> */}
             </div>
           </div>
         </nav>
@@ -118,7 +118,7 @@ function SideBar() {
             <a className="navbar-brand" href="#">
               <img src="/icon.png" height="25" alt="Logo" loading="lazy" />
             </a>
-            <form className="d-none d-md-flex input-group w-auto my-auto">
+            {/* <form className="d-none d-md-flex input-group w-auto my-auto">
               <input
                 autocomplete="off"
                 type="search"
@@ -129,8 +129,8 @@ function SideBar() {
               <span className="input-group-text border-0">
                 <i className="fas fa-search"></i>
               </span>
-            </form>
-            <ul className="navbar-nav ms-auto d-flex flex-row">
+            </form> */}
+            {/* <ul className="navbar-nav ms-auto d-flex flex-row">
               <li className="nav-item dropdown">
                 <a
                   className="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
@@ -166,7 +166,7 @@ function SideBar() {
                   </li>
                 </ul>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </nav>
       </header>
