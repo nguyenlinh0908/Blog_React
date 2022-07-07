@@ -3,7 +3,7 @@ import List from "./components/List";
 import { useState } from "react";
 import { Context } from "../../components/Context";
 function Index() {
-  let [status, setStatus] = useState("normal");
+  let [status, setStatus] = useState("origin");
   return (
     <>
       <div className="row">

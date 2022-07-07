@@ -98,7 +98,8 @@ function FormNewPost() {
       content: content,
       category: category,
     };
-    if (process != "normal") {
+    console.log(process);
+    if (process != "normal" && process != "origin") {
       let ID = status;
       isMethod = "PATCH";
       isUrl = `http://localhost:8000/api/v1/blogs/post/${ID}`;
@@ -114,7 +115,6 @@ function FormNewPost() {
       .then((res) => {
         setUrlAvatar("/logo512.png");
         document.getElementById("form-add-post").reset();
-        setStatus("normal");
         setStatus("normal");
         setTitle("");
         setDescription("");
@@ -238,10 +238,10 @@ function FormNewPost() {
           <button
             type="submit"
             className={`btn btn-${
-              status === "normal" ? "primary" : "warning"
+              status === "normal" || status == "origin" ? "primary" : "warning"
             } btn-block mb-4`}
           >
-            {status === "normal" ? "Send" : "Edit"}
+            {status === "normal" || status == "origin" ? "Send" : "Edit"}
           </button>
           <p onClick={handleClear}>Clear</p>
         </div>

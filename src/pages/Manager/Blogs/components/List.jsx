@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import "react-notifications-component/dist/theme.css";
@@ -20,6 +20,17 @@ function List() {
         console.log(err);
       });
   }, []);
+  useMemo(() => {
+    axios
+      .get("http://localhost:8000/api/v1/blogs/posts")
+      .then((res) => {
+        let blogs = res["data"];
+        setBlogs(blogs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [status]);
   const handleEdit = (e) => {
     e.preventDefault();
     let target = e.target;
