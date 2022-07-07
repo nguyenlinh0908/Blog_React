@@ -40,7 +40,12 @@ function RelatedNews(props) {
                 style={{ maxHeight: "16rem" }}
               />
               <div className="card-body">
-                <h5 className="card-title">{blog["title"]}</h5>
+                <a
+                  style={{ textDecoration: "none", color:"black" }}
+                  href={`/post/${blog["_id"]}`}
+                >
+                  <h5 className="card-title">{blog["title"]}</h5>
+                </a>
                 <p className="card-text">{blog["description"]}</p>
                 <p className="card-text">
                   <small className="text-muted">{blog["createdAt"]}</small>
