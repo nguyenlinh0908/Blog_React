@@ -48,7 +48,7 @@ function FormNewPost() {
     setDescription("");
     setCategory("");
     setUrl("");
-    setUrlAvatar("");
+    setUrlAvatar("/logo512.png");
     setContent("");
   };
   const handleChange = (e) => {

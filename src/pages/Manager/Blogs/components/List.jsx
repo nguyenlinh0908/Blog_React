@@ -9,7 +9,6 @@ import notification from "../../components/Notification";
 function List() {
   let [blogs, setBlogs] = useState([]);
   let [status, setStatus] = useContext(Context);
-
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/blogs/posts")
@@ -21,9 +20,6 @@ function List() {
         console.log(err);
       });
   }, []);
-  const handleViewBlog = (e) => {
-    e.preventDefault();
-  };
   const handleEdit = (e) => {
     e.preventDefault();
     let target = e.target;
@@ -85,14 +81,13 @@ function List() {
               <tr key={index}>
                 <th scope="row">{++index}</th>
                 <td>{blog["title"]}</td>
-                <td>Pokemon</td>
+                <td>{blog["category"]}</td>
                 <td>{blog["createdAt"]}</td>
                 <td>
                   <a
-                    href="#"
+                    href={`/post/${blog["_id"]}`}
                     data-id={blog["_id"]}
                     className="btn btn-info"
-                    onClick={handleViewBlog}
                   >
                     <i className="fa-solid fa-eye"></i>
                   </a>
