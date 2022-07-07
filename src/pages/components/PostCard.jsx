@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 function PostCard(props) {
-  let { id, url, title, description, created } = props;
+  let { id, url, title, description, created, views } = props;
   let navigate = useNavigate();
   const handleClick = (e) => {
     let ID = e.target.dataset.id;
@@ -26,7 +26,10 @@ function PostCard(props) {
                 {description}
               </p>
               <p className="card-text">
-                <small className="text-muted">{created}</small>
+                <i class="fa-solid fa-clock p-1"></i>
+                <small className="text-muted">{created}</small> <br />
+                <i class="fa-solid fa-eye p-1"></i>{" "}
+                <small className="text-muted">{views}</small>
               </p>
             </div>
           </div>

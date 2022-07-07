@@ -41,14 +41,18 @@ function RelatedNews(props) {
               />
               <div className="card-body">
                 <a
-                  style={{ textDecoration: "none", color:"black" }}
+                  style={{ textDecoration: "none", color: "black" }}
                   href={`/post/${blog["_id"]}`}
                 >
                   <h5 className="card-title">{blog["title"]}</h5>
                 </a>
                 <p className="card-text">{blog["description"]}</p>
                 <p className="card-text">
+                  <i class="fa-solid fa-clock p-1"></i>
                   <small className="text-muted">{blog["createdAt"]}</small>
+                  <br />
+                  <i class="fa-solid fa-eye p-1"></i>
+                  <small className="text-muted">{blog['views']}</small>
                 </p>
               </div>
             </div>

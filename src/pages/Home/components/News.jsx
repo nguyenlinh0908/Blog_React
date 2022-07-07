@@ -25,6 +25,7 @@ function News() {
             description={post["description"]}
             content={post["content"]}
             created={post["createdAt"]}
+            views={post['views']}
           />
         );
       })}

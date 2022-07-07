@@ -29,6 +29,7 @@ function Index() {
                 description={post["description"]}
                 content={post["content"]}
                 created={post["createdAt"]}
+                views={post['views']}
               />
             </div>
           );
