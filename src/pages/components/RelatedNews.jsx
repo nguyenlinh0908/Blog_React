@@ -1,19 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+const {URL_CLIENT} = require("../../setup")
 function RelatedNews(props) {
   let [blogs, setBlogs] = useState([]);
   let { type } = props;
   let url = "";
   switch (type) {
     case "home":
-      url = "http://localhost:8000/api/v1/blogs/posts?limit=3&sort=desc";
+      url = `${URL_CLIENT}/posts?limit=3&sort=desc`;
       break;
     case "detail":
-      url = "http://localhost:8000/api/v1/blogs/posts?limit=3&sort=asc";
+      url = `${URL_CLIENT}/posts?limit=3&sort=asc`;
       break;
     default:
-      url = "http://localhost:8000/api/v1/blogs/posts?limit=3&sort=asc";
+      url = `${URL_CLIENT}/posts?limit=3&sort=asc`;
       break;
   }
   useEffect(() => {

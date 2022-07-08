@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PostCard from "../components/PostCard";
+const {URL_CLIENT} = require("../../setup")
 function Index() {
   let { category } = useParams();
   let [posts, setPosts] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/v1/blogs/posts/category/${category}`)
+      .get(`${URL_CLIENT}/posts/category/${category}`)
       .then((res) => {
         let data = res["data"];
         setPosts(data);

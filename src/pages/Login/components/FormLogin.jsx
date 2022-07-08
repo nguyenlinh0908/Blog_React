@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+const {URL_CLIENT, URL_AUTH} = require("../../../setup")
 function FormLogin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -23,7 +24,7 @@ function FormLogin() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:8000/api/v1/auth/login", {
+      .post(`${URL_AUTH}/login`, {
         email: email,
         password: password,
       })

@@ -6,12 +6,13 @@ import "react-notifications-component/dist/theme.css";
 import { Context } from "../../../components/Context";
 import blogsList from "./BlogsList";
 import notification from "../../components/Notification";
+const {URL_CLIENT} = require("../../../../setup")
 function List() {
   let [blogs, setBlogs] = useState([]);
   let [status, setStatus] = useContext(Context);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/blogs/posts")
+      .get(`${URL_CLIENT}/posts`)
       .then((res) => {
         let blogs = res["data"];
         setBlogs(blogs);
@@ -22,7 +23,7 @@ function List() {
   }, []);
   useMemo(() => {
     axios
-      .get("http://localhost:8000/api/v1/blogs/posts")
+      .get(`${URL_CLIENT}/posts`)
       .then((res) => {
         let blogs = res["data"];
         setBlogs(blogs);
@@ -47,7 +48,7 @@ function List() {
       token = token["data"];
       let IDPost = target.dataset.id;
       axios
-        .delete(`http://localhost:8000/api/v1/blogs/post/${IDPost}`, {
+        .delete(`${URL_CLIENT}/post/${IDPost}`, {
           headers: {
             Authorization: "Bearer " + token,
           },

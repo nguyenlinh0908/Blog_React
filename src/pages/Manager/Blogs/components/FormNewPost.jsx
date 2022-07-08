@@ -5,6 +5,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import notification from "../../components/Notification";
 // components
 import { Context } from "../../../components/Context";
+const {URL_CLIENT} = require("../../../../setup")
 function FormNewPost() {
   let counter = 0;
   let [status, setStatus] = useContext(Context);
@@ -17,7 +18,7 @@ function FormNewPost() {
   let [urlAvatar, setUrlAvatar] = useState("/logo512.png");
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/blogs/categories")
+      .get(`${URL_CLIENT}/categories`)
       .then((res) => {
         let categories = res["data"];
         setCategories(categories);
@@ -28,7 +29,7 @@ function FormNewPost() {
     if (status != "normal") {
       let id = status;
       axios
-        .get(`http://localhost:8000/api/v1/blogs/post/${id}`)
+        .get(`${URL_CLIENT}/post/${id}`)
         .then((res) => {
           let post = res["data"];
           setTitle(post["title"]);

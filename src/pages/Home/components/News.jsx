@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PostCard from "../../components/PostCard";
+const {URL_CLIENT} = require("../../../setup")
 function News() {
   let [news, setNews] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/v1/blogs/posts?limit=5&sort=desc`)
+      .get(`${URL_CLIENT}/posts?limit=5&sort=desc`)
       .then((res) => {
         let posts = res["data"];
         setNews(posts);

@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
 // components
 import StandardizedRouter from "../../components/StandardizedRouter";
-
+const {URL_CLIENT} = require("../../../setup")
 function Content() {
   let [post, setPost] = useState({});
   let { id } = useParams();
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/v1/blogs/post/${id}`)
+      .get(`${URL_CLIENT}/post/${id}`)
       .then((res) => {
         let post = res["data"];
         setPost(post);

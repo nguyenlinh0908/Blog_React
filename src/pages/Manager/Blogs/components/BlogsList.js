@@ -1,7 +1,8 @@
 import axios from "axios";
+const { URL_CLIENT } = require("../../../../setup");
 async function blogsList() {
   return axios
-    .get("http://localhost:8000/api/v1/blogs/posts")
+    .get(`${URL_CLIENT}/posts`)
     .then((res) => {
       let blogs = res["data"];
       return blogs;
