@@ -78,9 +78,9 @@ function NavBar() {
                   Trang chủ
                 </a>
               </li>
-              <li class="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="#"
                   id="navbarDropdownMenuLink"
                   role="button"
@@ -91,7 +91,7 @@ function NavBar() {
                   Thể loại
                 </a>
                 <ul
-                  class="dropdown-menu"
+                  className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                   style={{ display: categoryStatus }}
                 >
@@ -100,7 +100,7 @@ function NavBar() {
                       <>
                         <li>
                           <a
-                            class="dropdown-item"
+                            className="dropdown-item"
                             href={`/category/${StandardizedRouter(
                               category["name"]
                             )}`}
@@ -120,17 +120,17 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <form class="d-flex" onSubmit={handleSearch}>
+          <form className="d-flex" onSubmit={handleSearch}>
             <input
               onChange={handleSearchKey}
-              class="form-control me-2 dropdown-toggle"
+              className="form-control me-2 dropdown-toggle"
               type="search"
               placeholder="Search"
               aria-label="Search"
               data-bs-toggle="dropdown"
             />
 
-            <button class="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               Search
             </button>
           </form>
@@ -147,13 +147,14 @@ function NavBar() {
           transition: "all 0.3s ease-out",
         }}
       >
-        <ul class="list-group" style={{ width: "17rem" }}>
+        <ul className="list-group" style={{ width: "17rem" }}>
           {postsSearch ? (
             postsSearch.map((post) => {
               return (
-                <li class="list-group-item">
-                  <a className="text-dark"
-                    style={{ textDecoration: "none"}}
+                <li className="list-group-item">
+                  <a
+                    className="text-dark"
+                    style={{ textDecoration: "none" }}
                     href={`/post/${post["_id"]}`}
                   >
                     {post["title"]}

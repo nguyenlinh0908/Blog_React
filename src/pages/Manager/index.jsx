@@ -19,7 +19,7 @@ function Index() {
       <ReactNotifications />
       <SideBar />
       <main style={{ marginTop: "58px" }}>
-        <div class="container-fluid pt-4">
+        <div className="container-fluid pt-4">
           <Blogs />
         </div>
       </main>

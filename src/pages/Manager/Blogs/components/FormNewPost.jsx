@@ -5,9 +5,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import notification from "../../components/Notification";
 // components
 import { Context } from "../../../components/Context";
-const {URL_CLIENT} = require("../../../../setup")
+const { URL_CLIENT } = require("../../../../setup");
 function FormNewPost() {
-  let counter = 0;
   let [status, setStatus] = useContext(Context);
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
@@ -26,7 +25,7 @@ function FormNewPost() {
       .catch((err) => {});
   }, []);
   useMemo(() => {
-    if (status != "normal") {
+    if (status != "normal" && status != "origin") {
       let id = status;
       axios
         .get(`${URL_CLIENT}/post/${id}`)
@@ -87,7 +86,7 @@ function FormNewPost() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let isMethod = "POST";
-    let isUrl = "http://localhost:8000/api/v1/blogs/post";
+    let isUrl = `${URL_CLIENT}/post`;
     let process = status;
     const cookies = new Cookies();
     let token = cookies.get("token");
@@ -99,11 +98,10 @@ function FormNewPost() {
       content: content,
       category: category,
     };
-    console.log(process);
     if (process != "normal" && process != "origin") {
       let ID = status;
       isMethod = "PATCH";
-      isUrl = `http://localhost:8000/api/v1/blogs/post/${ID}`;
+      isUrl = `${URL_CLIENT}/post/${ID}`;
     }
     axios({
       headers: {

@@ -26,9 +26,9 @@ function PostCard(props) {
                 {description}
               </p>
               <p className="card-text">
-                <i class="fa-solid fa-clock p-1"></i>
+                <i className="fa-solid fa-clock p-1"></i>
                 <small className="text-muted">{created}</small> <br />
-                <i class="fa-solid fa-eye p-1"></i>{" "}
+                <i className="fa-solid fa-eye p-1"></i>{" "}
                 <small className="text-muted">{views}</small>
               </p>
             </div>

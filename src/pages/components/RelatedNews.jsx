@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-const {URL_CLIENT} = require("../../setup")
+const { URL_CLIENT } = require("../../setup");
 function RelatedNews(props) {
   let [blogs, setBlogs] = useState([]);
   let { type } = props;
@@ -48,11 +48,11 @@ function RelatedNews(props) {
                 </a>
                 <p className="card-text">{blog["description"]}</p>
                 <p className="card-text">
-                  <i class="fa-solid fa-clock p-1"></i>
+                  <i className="fa-solid fa-clock p-1"></i>
                   <small className="text-muted">{blog["createdAt"]}</small>
                   <br />
-                  <i class="fa-solid fa-eye p-1"></i>
-                  <small className="text-muted">{blog['views']}</small>
+                  <i className="fa-solid fa-eye p-1"></i>
+                  <small className="text-muted">{blog["views"]}</small>
                 </p>
               </div>
             </div>
